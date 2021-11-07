@@ -1,7 +1,7 @@
 Spins in the following steps of the simulation for example parameters: J = 0.5, BETA = 0.25, H = 1.5:
 
 
-STEP 0:
+STEP 0 (INITIAL):
 
 ![step_0](https://user-images.githubusercontent.com/50342517/140651143-f80837b6-6516-449f-9bba-c4e06700e743.png)
 
