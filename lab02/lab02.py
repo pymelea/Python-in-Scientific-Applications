@@ -1,7 +1,8 @@
 # Import dependencies
 import numpy as np
 import random
-from rich.progress import track
+from rich.progress import Progress, BarColumn, TimeElapsedColumn, SpinnerColumn
+from rich.console import Console
 from PIL import Image
 
 
@@ -95,7 +96,9 @@ class Ising:
     def simulation(self):
 
         file = open('magnetisation.txt', 'w')
-        file.write('STEP\tM\n')
+        file.write(
+            f'Frame: {self.size}x{self.size},\tJ = {J},\tBeta = {self.beta},\tH = {self.H}\n')
+        file.write('STEP\tMagnetisation\n')
 
         # Initial magnetisiation
         magnetisation = 0
@@ -106,13 +109,25 @@ class Ising:
         width, height = arrow_up.size
         img = Image.new('RGB', (width * self.size, height * self.size))
 
-        for step in track(range(self.N), description='Processing...', auto_refresh=False):
-            # Save before calculate new state because we want to have info about initial state
-            self.save_image(step, arrow_up, arrow_down, width, height, img)
-            magnetisation = self.calculate_magnetisation() / (self.size * self.size)
-            file.write(f'{step}\t{magnetisation}\n')
-            # New state
-            self.calculate_new_state()
+        # Progress bar customisation
+        progress = Progress(
+            TimeElapsedColumn(),
+            '[bold magenta]{task.description}',
+            BarColumn(),
+            '[bold magenta]Step {task.completed} of {task.total}',
+            SpinnerColumn(),
+        )
+
+        with progress:
+            task = progress.add_task("Processing..", total=self.N)
+            for step in range(self.N):
+                # Save before calculate new state because we want to have info about initial state
+                self.save_image(step, arrow_up, arrow_down, width, height, img)
+                magnetisation = self.calculate_magnetisation() / (self.size * self.size)
+                file.write(f'{step}\t{magnetisation}\n')
+                # New state
+                self.calculate_new_state()
+                progress.update(task, advance=1)
 
         file.write(f'{self.N}\t{magnetisation}\n')
         file.close()
@@ -123,16 +138,20 @@ class Ising:
 if __name__ == '__main__':
 
     # Frame size
-    size = 10
+    size = 12
     # Exchange integral
-    J = 0.5
+    J = 0.7
     # Temperature
-    beta = 0.25
+    beta = 0.45
     # Field value
-    H = 1.5
+    H = 2.5
     # Simulation steps
-    N = 10
+    N = 11
 
+    console = Console()
+    console.print(
+        f'[bold green]Frame: {size}x{size}, J = {J}, Beta = {beta}, H = {H}')
     # Create object and run simulation
     ising = Ising(size, J, beta, H, N)
     ising.simulation()
+    console.print('[bold green]Completed succesfully!')
