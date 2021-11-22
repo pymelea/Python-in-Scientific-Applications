@@ -7,3 +7,4 @@ Directories description - (libraries):
 2. Simulation of the 2D Ising Model by Monte Carlo method - (Rich, Pillow).
 3. Web scraping - (json, requests, BeautifulSoup).
 4. Web scraping - (Selenium).
+5. Dashboards - (Bokeh).
