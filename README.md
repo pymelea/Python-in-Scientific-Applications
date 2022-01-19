@@ -12,3 +12,4 @@ Directories description - (libraries):
 7. Numba - (Numba).
 8. Multitasking - (Multiprocessig).
 9. Async - (Asyncio, Aiohttp).
+10. Data treatment - (Pandas).
