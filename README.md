@@ -8,7 +8,7 @@ Directories description - (libraries):
 3. Web scraping - (BeautifulSoup).
 4. Web scraping - (Selenium).
 5. Dashboards - (Bokeh).
-6. Decorators - (Matplotlib, Numba, Numpy). In this lab I test the use of decorators on the example of a quantum particle simulation.
+6. Decorators - (Matplotlib, Numba, Numpy). 
 7. Numba - (Numba).
 8. Multitasking - (Multiprocessig).
 9. Async - (Asyncio, Aiohttp).
