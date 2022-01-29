@@ -13,3 +13,4 @@ Directories description - (libraries):
 8. Multitasking - (Multiprocessig).
 9. Async - (Asyncio, Aiohttp).
 10. Data treatment - (Pandas).
+11. Networks - (NetworkX).
